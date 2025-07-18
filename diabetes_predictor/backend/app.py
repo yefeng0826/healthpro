@@ -263,6 +263,8 @@ def logout():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    import socket
-    socket.getfqdn = lambda x=None: 'localhost'
-    app.run(host="127.0.0.1", port=5000, debug=True)
+
+    import os
+    port = int(os.environ.get("PORT", 5000))  # Render 会自动提供 PORT
+    app.run(host="0.0.0.0", port=port)
+
