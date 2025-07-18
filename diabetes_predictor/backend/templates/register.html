@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register | HealthPro</title>
+  <!-- 引入 Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-pEc6UZv1+7pMU9O3+ONNeYzR5ZL6+5srRkGHCSOfBygZtltY3JaTqzVHHd/9dU6NwqnjK0QhV+ZoZ3I1y+K+kg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+    }
+
+    .left {
+      flex: 1.6;
+      background: url("{{ url_for('static', filename='images/sign.png') }}") no-repeat center center;
+      background-size: cover;
+      background-color: #eeeeee;
+    }
+
+    .right {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+    }
+
+    .register-box {
+      width: 350px;
+    }
+
+    .register-box h2 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .register-box p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 25px;
+    }
+
+    /* 每一格输入框的容器 */
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;    /* 加大底部间距 */
+    }
+
+    /* 图标 */
+    .input-group .fa {
+      position: absolute;
+      right: 12px;            /* 图标靠右 */
+      top: 50%;
+      transform: translateY(-50%);
+      color: #999;
+      font-size: 18px;
+      pointer-events: none;
+    }
+
+    /* 输入框本身，内左右都留够空间给图标 */
+    .input-group input {
+      width: 100%;
+      padding: 12px 40px 12px 12px; /* 右边多留 40px 给图标 */
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    .register-box button {
+      width: 100%;
+      padding: 12px;
+      background-color: #a0aec0;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .register-box button:hover {
+      background-color: #718096;
+    }
+
+    .login-redirect {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+
+    .login-redirect a {
+      color: #333;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="left"></div>
+
+  <div class="right">
+    <form class="register-box" method="POST" action="/register">
+      <h2>Sign up</h2>
+      <p>Fill in your information to proceed</p>
+
+      <div class="input-group">
+        <input type="text" name="name" placeholder="Name and Surname" required>
+        <i class="fa fa-id-card"></i>
+      </div>
+
+      <div class="input-group">
+        <input type="email" name="email" placeholder="Enter your email" required>
+        <i class="fa fa-envelope"></i>
+      </div>
+
+      <div class="input-group">
+        <input type="text" name="username" placeholder="Create your username" required>
+        <i class="fa fa-user"></i>
+      </div>
+
+      <div class="input-group">
+        <input type="password" name="password" placeholder="Set up your password" required>
+        <i class="fa fa-key"></i>
+      </div>
+
+      <div class="input-group">
+        <input type="password" name="confirm_password" placeholder="Confirm your password" required>
+        <i class="fa fa-lock"></i>
+      </div>
+
+      <button type="submit">Join</button>
+
+      <div class="login-redirect">
+        Already a member? <a href="/login">Log in</a>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>

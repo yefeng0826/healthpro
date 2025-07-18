@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HealthPro | Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-image: url("{{ url_for('static', filename='images/u1.png') }}");
+            background-size: cover;
+            background-position: center;
+            color: #000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 50px;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 5px;
+            background-color: #000;
+            color: white;
+        }
+
+        .main-content {
+            text-align: center;
+            margin-top: 180px;
+        }
+
+        .main-content h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .main-content .start-btn {
+            background-color: black;
+            color: white;
+            padding: 14px 32px;
+            font-size: 18px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            display: flex;
+            justify-content: space-around;
+            padding: 20px 0;
+            font-size: 14px;
+        }
+
+        .footer h4 {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部导航 -->
+    <div class="navbar">
+        <div class="navbar-left">
+            <img src="{{ url_for('static', filename='images/heart.png') }}" alt="logo" width="30">
+            <h2>HealthPro</h2>
+        </div>
+        <div class="navbar-right">
+            <a href="/login">Log in</a>
+            <a href="/register">Sign up</a>
+            <select>
+                <option>EN</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- 主体内容 -->
+    <div class="main-content">
+        <h1>Cherish life</h1>
+        <a href="/login"><button class="start-btn">Start</button></a>
+    </div>
+
+    <!-- 底部信息 -->
+    <div class="footer">
+        <div>
+            <h4>Contact Information</h4>
+            <p>Email: A197878@siswa.ukm.edu.my</p>
+            <p>Phone: +60 1124110499</p>
+        </div>
+        <div>
+            <h4>About Us</h4>
+            <p>HealthPro is committed to providing comprehensive health and wellness resources tailored to individual needs.</p>
+        </div>
+        <div>
+            <h4>Address</h4>
+            <p>Lingkungan llmu,43600 Bangi,Selangor</p>
+        </div>
+    </div>
+
+</body>
+</html>

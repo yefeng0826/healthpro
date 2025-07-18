@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Personal Information | HealthPro</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 40px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .navbar-left img {
+      width: 24px;
+    }
+
+    .navbar-right a {
+      margin-left: 25px;
+      text-decoration: none;
+      color: #000;
+      font-weight: 500;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 40px auto;
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    h3 {
+      margin-top: 32px;
+      margin-bottom: 16px;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="password"],
+    form input[type="tel"],
+    form input[type="date"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    .gender-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 20px;
+    }
+
+    .form-row > div {
+      flex: 1;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background-color: black;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .note {
+      font-size: 13px;
+      color: #999;
+      margin-top: -16px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="navbar-left">
+      <img src="{{ url_for('static', filename='images/blackheart.png') }}" alt="Logo">
+      <h2>HealthPro</h2>
+    </div>
+    <div class="navbar-right">
+      <a href="/">Dashboard</a>
+      <a href="/profile">Profile</a>
+      <a href="/assessment/history">History</a>
+      <a href="/feedbackuser">Feedback</a>
+      <a href="/logout">Logout</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Personal Information</h1>
+    <form method="POST" action="/profile">
+
+      <h3>Personal Details</h3>
+      <label for="fullname">Full Name</label>
+      <input type="text" name="name" id="fullname" value="{{ profile.name if profile else '' }}" required>
+
+      <div class="form-row">
+        <div>
+          <label>Gender</label>
+          <div class="gender-group">
+            <label><input type="radio" name="gender" value="Male" {% if profile and profile.gender == 'Male' %}checked{% endif %}> Male</label>
+            <label><input type="radio" name="gender" value="Female" {% if profile and profile.gender == 'Female' %}checked{% endif %}> Female</label>
+          </div>
+        </div>
+        <div>
+          <label for="age">Age</label>
+          <input type="text" name="age" id="age" value="{{ profile.age if profile else '' }}" required>
+        </div>
+      </div>
+
+      <label for="dob">Date of Birth</label>
+      <input type="date" name="dob" id="dob" placeholder="Not saved currently">
+      <div class="note">* This field is not saved in current version</div>
+
+      <h3>Account Settings</h3>
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" placeholder="Linked to login" readonly>
+      <div class="note">* You cannot change login email here</div>
+
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" placeholder="••••••••" readonly>
+      <div class="note">* Password change not supported here</div>
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" name="contact" id="phone" value="{{ profile.contact_info if profile else '' }}" required>
+
+      <button type="submit" class="submit-btn">Save Changes</button>
+
+    </form>
+  </div>
+
+</body>
+</html>
+
+
+</body>
+</html>

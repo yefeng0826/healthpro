@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Feedback | HealthPro</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #ddd;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: bold;
+    }
+    .logo img {
+      width: 22px;
+    }
+    .nav-right {
+      display: flex;
+      gap: 15px;
+    }
+    .nav-right button {
+      padding: 8px 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      background-color: black;
+      color: white;
+      cursor: pointer;
+    }
+    .main {
+      display: flex;
+      padding: 30px;
+      gap: 30px;
+    }
+    .left, .right {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      flex: 1;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .left h2,
+    .right h2 {
+      margin-bottom: 20px;
+    }
+    .feedback-item {
+      border: 1px solid #eee;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      cursor: pointer;
+    }
+    .feedback-item strong {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+    .feedback-item small {
+      color: #1976d2;
+      font-size: 13px;
+    }
+    .feedback-item p {
+      margin-top: 5px;
+      font-size: 14px;
+      color: #444;
+    }
+    .right .detail-box {
+      border: 1px solid #eee;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    .detail-box p {
+      font-size: 14px;
+      margin: 6px 0;
+    }
+    .buttons {
+      margin-top: 15px;
+      display: flex;
+      gap: 15px;
+    }
+    .buttons button {
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .respond-btn {
+      background-color: #1e88e5;
+      color: white;
+    }
+    .resolve-btn {
+      background-color: #ef5350;
+      color: white;
+    }
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 13px;
+      color: #666;
+      padding: 20px 0;
+      border-top: 1px solid #ddd;
+      background-color: #fff;
+    }
+    footer span {
+      float: right;
+      margin-right: 30px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='images/heart.png') }}" alt="logo">
+      HealthPro
+    </div>
+    <div class="nav-right">
+      <a href="{{ url_for('index') }}">
+        <button>Dashboard</button>
+      </a>
+      <a href="{{ url_for('logout') }}">
+        <button>Logout</button>
+      </a>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="left">
+      <h2>Recent Feedback</h2>
+      {% for fb in feedbacks %}
+      <div class="feedback-item" onclick="showDetails(this)"
+           data-username="{{ fb.username }}"
+           data-id="{{ fb.id }}"
+           data-message="{{ fb.message | e }}"
+           data-reply="{{ fb.reply | e if fb.reply else '' }}">
+        <strong>{{ fb.username }}</strong>
+        <small>{{ fb.id }}号反馈</small>
+        <p>{{ fb.message[:100] }}{% if fb.message|length > 100 %}...{% endif %}</p>
+      </div>
+      {% else %}
+      <p>暂无用户反馈。</p>
+      {% endfor %}
+    </div>
+
+    <div class="right">
+      <h2>Feedback Details</h2>
+      {% if feedbacks %}
+      <div class="detail-box">
+        <strong id="detail-username">{{ feedbacks[0].username }}</strong>
+        <p><strong>ID:</strong> <span id="detail-id">{{ feedbacks[0].id }}</span></p>
+        <p id="detail-message">{{ feedbacks[0].message }}</p>
+        <div style="margin-top: 20px;">
+          <label><strong>Reply:</strong></label><br>
+          <textarea id="reply-text" rows="4" style="width: 100%; margin-top: 8px;">{{ feedbacks[0].reply or '' }}</textarea>
+        </div>
+        <div class="buttons">
+          <button class="respond-btn" onclick="sendReply()">Respond</button>
+          <button class="resolve-btn" onclick="markAsResolved()">Mark as Resolved</button>
+        </div>
+      </div>
+      {% else %}
+      <p>暂无详细内容。</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <footer>
+    © 2023 HealthPro, All Rights Reserved
+    <span>Contact us: support@healthpro.com</span>
+  </footer>
+
+  <script>
+    function showDetails(elem) {
+      const username = elem.getAttribute('data-username');
+      const id = elem.getAttribute('data-id');
+      const message = elem.getAttribute('data-message');
+      const reply = elem.getAttribute('data-reply');
+
+      document.getElementById('detail-username').textContent = username;
+      document.getElementById('detail-id').textContent = id;
+      document.getElementById('detail-message').textContent = message;
+      document.getElementById('reply-text').value = reply || '';
+    }
+
+    function sendReply() {
+      const feedbackId = document.getElementById('detail-id').textContent;
+      const reply = document.getElementById('reply-text').value;
+
+      fetch('/admin/reply', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `feedback_id=${feedbackId}&reply=${encodeURIComponent(reply)}`
+      })
+      .then(res => res.text())
+      .then(data => alert("✅ 回复已保存"))
+      .catch(err => alert("❌ 回复失败"));
+    }
+
+    function markAsResolved() {
+      const feedbackId = document.getElementById('detail-id').textContent;
+
+      fetch('/admin/resolve', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `feedback_id=${feedbackId}`
+      })
+      .then(res => res.text())
+      .then(data => alert("✅ 已读成功"))
+      .catch(err => alert("❌ 已读失败"));
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Medium Risk | HealthPro</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .navbar .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .navbar .menu {
+      display: flex;
+      gap: 25px;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .alert {
+      background-color: #fff3cd;
+      color: #856404;
+      padding: 15px 30px;
+      margin: 30px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .card-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin: 30px;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      width: 300px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .card img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .card ul {
+      padding-left: 20px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='images/blackheart.png') }}" width="24" alt="logo">
+      <strong>HealthPro</strong>
+    </div>
+    <div class="menu">
+      <a href="#">Home</a>
+      <a href="#">Profile</a>
+      <a href="#">Settings</a>
+      <a href="/feedbackuser">Feedback</a>
+      <a href="/logout">Logout</a>
+    </div>
+  </div>
+
+  <div class="alert">
+    Medium Risk <br>
+    <small>This test reminds: There is a certain risk of diabetes, please maintain good living habits and have regular physical examinations</small>
+  </div>
+
+  <div class="card-container">
+    <div class="card">
+      <img src="{{ url_for('static', filename='images/low1.png') }}" alt="exercise">
+      <h3>Scientific Exercise</h3>
+      <ul>
+        <li>1. etc</li>
+        <li>2. etc</li>
+        <li>3. etc</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <img src="{{ url_for('static', filename='images/low2.png') }}" alt="diet">
+      <h3>Healthy Diet</h3>
+      <p>
+        Eat a balanced diet rich in fruits and vegetables.<br>
+        Limit your intake of processed foods and sugars.<br>
+        Stay hydrated by drinking plenty of water.
+      </p>
+    </div>
+
+    <div class="card">
+      <img src="{{ url_for('static', filename='images/low3.png') }}" alt="rest">
+      <h3>Attention to Rest</h3>
+      <p>
+        Aim for 7–9 hours of sleep each night.<br>
+        Create a restful environment free of distractions.<br>
+        Practice relaxation techniques before bed.
+      </p>
+    </div>
+
+    <div class="card">
+      <img src="{{ url_for('static', filename='images/hight1.png') }}" alt="endocrinology">
+      <h3>Department of treatment: Endocrinology</h3>
+      <p>
+        <a href="#">1. stc</a><br>
+        Create a restful environment free of distractions.<br>
+        Practice relaxation techniques before bed.
+      </p>
+    </div>
+  </div>
+
+</body>
+</html>

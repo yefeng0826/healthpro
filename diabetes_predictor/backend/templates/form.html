@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Type 2 Diabetes Risk Self-Assessment</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: linear-gradient(to right, #4caf50 60%, #ddd 0%);
+      width: 100%;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .unit-label {
+      font-weight: normal;
+      color: #777;
+      font-size: 12px;
+      margin-left: 8px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .options label {
+      font-weight: normal;
+      margin-right: 15px;
+    }
+
+    .submit-button {
+      width: 100%;
+      padding: 14px;
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+  <script>
+    function validateForm() {
+      const glucose = parseFloat(document.forms[0].glucose.value);
+      const bmi = parseFloat(document.forms[0].bmi.value);
+      const insulin = parseFloat(document.forms[0].insulin.value);
+
+      if (glucose < 0 || isNaN(glucose)) {
+        alert("Glucose must be a non-negative number.");
+        return false;
+      }
+
+      if (bmi < 10 || bmi > 70 || isNaN(bmi)) {
+        alert("BMI should be between 10 and 70.");
+        return false;
+      }
+
+      if (insulin < 0 || isNaN(insulin)) {
+        alert("Insulin must be a non-negative number.");
+        return false;
+      }
+
+      return true;
+    }
+  </script>
+</head>
+<body>
+  <div class="progress-bar"></div>
+
+  <div class="container">
+    <h2>Type 2 Diabetes Risk Self-Assessment</h2>
+    <form action="/predict" method="POST" onsubmit="return validateForm()">
+
+      <div class="form-group">
+        <label>Age</label>
+        <input type="number" name="age" required min="1" max="120">
+      </div>
+
+      <div class="form-group">
+        <label>Gender</label>
+        <div class="options">
+          <label><input type="radio" name="gender" value="Male" required> Male</label>
+          <label><input type="radio" name="gender" value="Female"> Female</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Glucose <span class="unit-label">(mg/dL)</span></label>
+        <input type="number" step="any" name="glucose" required>
+      </div>
+
+      <div class="form-group">
+        <label>Blood Pressure <span class="unit-label">(mmHg)</span></label>
+        <input type="number" step="any" name="bloodpressure" required>
+      </div>
+
+      <div class="form-group">
+        <label>Skin Thickness <span class="unit-label">(mm)</span></label>
+        <input type="number" step="any" name="skinthickness" required>
+      </div>
+
+      <div class="form-group">
+        <label>Insulin <span class="unit-label">(μU/mL)</span></label>
+        <input type="number" step="any" name="insulin" required>
+      </div>
+
+      <div class="form-group">
+        <label>BMI <span class="unit-label">(kg/m²)</span></label>
+        <input type="number" step="any" name="bmi" required>
+      </div>
+
+      <div class="form-group">
+        <label>Polyphagia (Excessive Hunger)</label>
+        <div class="options">
+          <label><input type="radio" name="polyphagia" value="Yes" required> Yes</label>
+          <label><input type="radio" name="polyphagia" value="No"> No</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Delayed Healing</label>
+        <div class="options">
+          <label><input type="radio" name="healing" value="Yes" required> Yes</label>
+          <label><input type="radio" name="healing" value="No"> No</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Obesity</label>
+        <div class="options">
+          <label><input type="radio" name="obesity" value="Yes" required> Yes</label>
+          <label><input type="radio" name="obesity" value="No"> No</label>
+        </div>
+      </div>
+
+      <button class="submit-button" type="submit">Submit Assessment</button>
+    </form>
+  </div>
+</body>
+</html>
